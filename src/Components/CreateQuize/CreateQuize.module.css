@@ -1,0 +1,50 @@
+/* CreateQuiz.module.css */
+
+.topicInput {
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.inputs_together {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.inputs_together input {
+  width: 48%;
+}
+
+.add_input {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.add_input button,
+.add_input p {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.add_input button:hover,
+.add_input p:hover {
+  background-color: #0056b3;
+}
+
+.block_text {
+  font-size: 16px;
+  font-weight: bold;
+}
