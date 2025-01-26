@@ -1,6 +1,7 @@
 export const initianal_object = [
   {
     topic: "Historia",
+    isDone: false, // Dodane isDone
     items: [
       { pojecie: "Wojna", definicja: "Konflikt zbrojny między państwami." },
       { pojecie: "Rewolucja", definicja: "Nagła zmiana władzy lub systemu." },
@@ -17,6 +18,7 @@ export const initianal_object = [
   },
   {
     topic: "Nauka",
+    isDone: false, // Dodane isDone
     items: [
       { pojecie: "Grawitacja", definicja: "Siła przyciągania między ciałami." },
       { pojecie: "Atom", definicja: "Podstawowy składnik materii." },
@@ -35,6 +37,7 @@ export const initianal_object = [
   },
   {
     topic: "Filmy",
+    isDone: true, // Dodane isDone jako true
     items: [
       { pojecie: "Kino", definicja: "Miejsce wyświetlania filmów." },
       { pojecie: "Scenariusz", definicja: "Tekst opisujący fabułę filmu." },
@@ -51,6 +54,34 @@ export const initianal_object = [
         pojecie: "Film fabularny",
         definicja:
           "Film, którego fabuła opowiada wymyśloną historię, w odróżnieniu od dokumentu.",
+      },
+    ],
+  },
+  {
+    topic: "Geografia",
+    isDone: false, // Pozostawiamy isDone jako true
+    items: [
+      {
+        pojecie: "Kontynent",
+        definicja: "Duża, wyraźnie wyodrębniona część lądowa.",
+      },
+      {
+        pojecie: "Ocean",
+        definicja:
+          "Rozległy zbiornik wodny, który pokrywa dużą część ziemskiej powierzchni.",
+      },
+      {
+        pojecie: "Klimat",
+        definicja: "Długoterminowe warunki pogodowe w danym regionie.",
+      },
+      {
+        pojecie: "Rzeka",
+        definicja: "Naturalny ciek wodny płynący w określonym korycie.",
+      },
+      {
+        pojecie: "Góry",
+        definicja:
+          "Wysokie wzniesienia terenu, które są wynikiem procesów geologicznych.",
       },
     ],
   },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { createContext } from "react";
 
@@ -7,6 +7,7 @@ import NewQuize from "./Components/Quize/NewQuize";
 import CreateQuize from "./Components/CreateQuize/CreateQuize";
 import { initianal_object } from "./initianal_object";
 import styles from "./App.module.css";
+import OldQuize from "./OldQuize/OldQuize";
 
 export const DataContext = createContext();
 
@@ -18,14 +19,35 @@ function App() {
   const handleDataFromChild = (data) => {
     setUserData((prewState) => {
       const newState = [...prewState, data]; // Obliczamy nowy stan
-      console.log("Nowy stan:", newState); // Logujemy nowy stan
       return newState; // Ustawiamy nowy stan
     });
   };
 
   const hadleDataFromChoosenTopic = (data) => {
-    console.log("shoose", data);
+    // console.log("shoose", data);
     setChooseQuize(data);
+  };
+
+  const handleFinishTopic = (data) => {
+    setUserData((prevState) => {
+      // Modyfikujemy tylko te dane, które faktycznie się zmieniają
+      const updatedData = prevState.map((item) => {
+        if (item.topic === data && !item.isDone) {
+          return { ...item, isDone: true }; // Zmieniamy tylko, jeśli isDone jest false
+        }
+        return item; // Zwracamy niezmieniony element, jeśli temat nie pasuje lub już jest done
+      });
+
+      // Sprawdzamy, czy stan się zmienił przed jego aktualizowaniem
+      // Jeśli updatedData jest identyczna z prevState, to nie aktualizujemy stanu
+      if (JSON.stringify(prevState) !== JSON.stringify(updatedData)) {
+        console.log("Updated Data:", updatedData); // Zalogujmy stan przed zmianą
+        return updatedData; // Zwracamy nowy stan tylko jeśli się zmienił
+      } else {
+        console.log("No change in state.");
+        return prevState; // Zwracamy poprzedni stan, jeśli brak zmian
+      }
+    });
   };
 
   return (
@@ -46,7 +68,7 @@ function App() {
               </li>
               <li className={styles.main_nav_item}>
                 <Link className={styles.main_nav_link} to="/history">
-                  Historia
+                  Wykonane quize
                 </Link>
               </li>
             </ul>
@@ -64,13 +86,17 @@ function App() {
                 }
               />
               <Route path="/create" element={<CreateQuize />} />
-              <Route path="/history" element={<div>Historia</div>} />
+              <Route
+                path="/history"
+                element={<OldQuize tableData={userData} />}
+              />
               <Route
                 path="/quize/:topic"
                 element={
                   <NewQuize
                     chooseTopic={shooseQuize}
                     initianal_object={userData}
+                    onFinishTopic={handleFinishTopic}
                   />
                 }
               />
@@ -83,60 +109,3 @@ function App() {
 }
 
 export default App;
-
-// import React, { useState } from "react";
-
-// const DodajInputy = () => {
-
-//   const [inputs, setInputs] = useState([{ pojecie: "", definicja: "" }]);
-
-//   const handleAddInput = () => {
-//     setInputs([...inputs, { pojecie: "", definicja: "" }]);
-//     // Dodaje nowy obiekt inputów do stanu
-//   };
-
-//   const handleInputChange = (index, field, value) => {
-//     const newInputs = [...inputs];
-//     newInputs[index][field] = value;
-//     setInputs(newInputs);
-//   };
-
-//   return (
-//     <div>
-//       <h3>Nazwa tematu</h3>
-//       {inputs.map((input, index) => (
-//         <div key={index} className="inputs_together">
-
-//           <div className="kolumna_input">
-
-//             <input
-//               id={`pojecie-${index}`}
-//               type="text"
-//               value={input.pojecie}
-//               onChange={(e) =>
-//                 handleInputChange(index, "pojecie", e.target.value)
-//               }
-//             />
-//             <label htmlFor={`pojecie-${index}`}>Pojęcie</label>
-//           </div>
-//           <div className="kolumna_input">
-//             <input
-//               id={`definicja-${index}`}
-//               type="text"
-//               value={input.definicja}
-//               onChange={(e) =>
-//                 handleInputChange(index, "definicja", e.target.value)
-//               }
-//             />
-//             <label htmlFor={`definicja-${index}`}>Definicja</label>
-//           </div>
-//         </div>
-//       ))}
-//       <div className="add_input">
-//         <button onClick={handleAddInput}>Dodaj fiszkę</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DodajInputy;

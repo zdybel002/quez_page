@@ -25,6 +25,7 @@ function CreateQuize() {
   };
   const newTopic = {
     topic: topic,
+    isDone: false,
     items: inputs, // Przypisanie tablicy `inputs` do klucza `items`
   };
 

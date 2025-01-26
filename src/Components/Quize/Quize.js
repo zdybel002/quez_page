@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import styles from "./Quize.module.css";
+import React, { useEffect, useState } from "react";
 
-const Quiz = ({ questions }) => {
+const Quiz = (props) => {
+  const handleQuizFinish = () => {
+    props.onFinishQuize();
+  };
   // Aktualne pytanie
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -11,27 +13,30 @@ const Quiz = ({ questions }) => {
   // Czy quiz jest zakończony?
   const [isQuizFinished, setIsQuizFinished] = useState(false);
 
-  // Aktualne pytanie
-  const currentQuestion = questions[currentQuestionIndex];
+  // Pobranie aktualnego pytania z props.questions
+  const currentQuestion = props.questions[currentQuestionIndex];
 
   const handleAnswer = (selectedAnswer) => {
     if (selectedAnswer === currentQuestion.correctAnswer) {
       setScore(score + 1);
     }
 
-    if (currentQuestionIndex + 1 < questions.length) {
+    if (currentQuestionIndex + 1 < props.questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setIsQuizFinished(true);
     }
+    handleQuizFinish();
   };
 
+  // Po zakończeniu quizu
   if (isQuizFinished) {
+    props.onFinishTopic(props.chooseTopic);
     return (
       <div>
         <h2>Koniec quizu!</h2>
         <p>
-          Twój wynik to {score}/{questions.length}
+          Twój wynik to {score}/{props.questions.length}
         </p>
       </div>
     );

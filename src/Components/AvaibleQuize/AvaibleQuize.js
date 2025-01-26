@@ -10,22 +10,19 @@ function AvaibleQuize(props) {
   const handleClick = (item) => {
     props.onChoosenTopic(item);
   };
+  const notDoneTopics = props.baza.filter((topic) => topic.isDone === false);
 
   return (
     <div className={styles.topics_blocks}>
-      {props.baza.map((item, index) => (
-        <div
-        // Wywołujemy funkcję przekazując item.topic
+      {notDoneTopics.map((item, index) => (
+        <Link
+          to={`/quize/${item.topic}`}
+          key={index}
+          className={styles.blocks_item}
+          onClick={() => handleClick(item.topic)}
         >
-          <Link
-            to={`/quize/${item.topic}`}
-            key={index}
-            className={styles.blocks_item}
-            onClick={() => handleClick(item.topic)}
-          >
-            {item.topic}
-          </Link>
-        </div>
+          {item.topic}
+        </Link>
       ))}
     </div>
   );
